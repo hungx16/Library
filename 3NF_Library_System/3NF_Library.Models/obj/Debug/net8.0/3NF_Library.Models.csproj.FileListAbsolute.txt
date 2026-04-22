@@ -1,0 +1,14 @@
+C:\Hung\project c#\3NF-Library-System-main\3NF-Library-System-main\3NF_Library.Models\bin\Debug\net8.0\3NF_Library.Models.deps.json
+C:\Hung\project c#\3NF-Library-System-main\3NF-Library-System-main\3NF_Library.Models\bin\Debug\net8.0\3NF_Library.Models.runtimeconfig.json
+C:\Hung\project c#\3NF-Library-System-main\3NF-Library-System-main\3NF_Library.Models\bin\Debug\net8.0\3NF_Library.Models.dll
+C:\Hung\project c#\3NF-Library-System-main\3NF-Library-System-main\3NF_Library.Models\bin\Debug\net8.0\3NF_Library.Models.pdb
+C:\Hung\project c#\3NF-Library-System-main\3NF-Library-System-main\3NF_Library.Models\obj\Debug\net8.0\3NF_Library.Models.csproj.AssemblyReference.cache
+C:\Hung\project c#\3NF-Library-System-main\3NF-Library-System-main\3NF_Library.Models\obj\Debug\net8.0\3NF_Library.Models.GeneratedMSBuildEditorConfig.editorconfig
+C:\Hung\project c#\3NF-Library-System-main\3NF-Library-System-main\3NF_Library.Models\obj\Debug\net8.0\3NF_Library.Models.AssemblyInfoInputs.cache
+C:\Hung\project c#\3NF-Library-System-main\3NF-Library-System-main\3NF_Library.Models\obj\Debug\net8.0\3NF_Library.Models.AssemblyInfo.cs
+C:\Hung\project c#\3NF-Library-System-main\3NF-Library-System-main\3NF_Library.Models\obj\Debug\net8.0\3NF_Library.Models.csproj.CoreCompileInputs.cache
+C:\Hung\project c#\3NF-Library-System-main\3NF-Library-System-main\3NF_Library.Models\obj\Debug\net8.0\3NF_Library.Models.dll
+C:\Hung\project c#\3NF-Library-System-main\3NF-Library-System-main\3NF_Library.Models\obj\Debug\net8.0\refint\3NF_Library.Models.dll
+C:\Hung\project c#\3NF-Library-System-main\3NF-Library-System-main\3NF_Library.Models\obj\Debug\net8.0\3NF_Library.Models.pdb
+C:\Hung\project c#\3NF-Library-System-main\3NF-Library-System-main\3NF_Library.Models\obj\Debug\net8.0\3NF_Library.Models.genruntimeconfig.cache
+C:\Hung\project c#\3NF-Library-System-main\3NF-Library-System-main\3NF_Library.Models\obj\Debug\net8.0\ref\3NF_Library.Models.dll
