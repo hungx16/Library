@@ -1,0 +1,56 @@
+﻿@{
+    ViewData["Title"] = "Dashboard Thủ thư";
+}
+
+<div class="container mt-4 text-white">
+    <div class="text-center mb-5">
+        <h1 class="display-5 fw-bold text-success">Bàn Làm Việc Thủ Thư</h1>
+        <p class="opacity-75">Hệ thống quản lý thư viện 3NF chuẩn hóa</p>
+    </div>
+
+    <div class="row g-4 justify-content-center">
+        <div class="col-md-4">
+            <div class="card h-100 bg-dark border-success shadow">
+                <div class="card-body text-center">
+                    <div class="display-4 text-success mb-3"><i class="bi bi-journal-plus"></i></div>
+                    <h5 class="card-title fw-bold text-success">Quản lý kho sách</h5>
+                    <p class="card-text text-light opacity-75 small">Xem tồn kho, tìm kiếm và nhập sách mới vào hệ thống.</p>
+                    <a asp-action="ManageBooks" class="btn btn-success w-100">Vào kho sách</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card h-100 bg-dark border-primary shadow">
+                <div class="card-body text-center text-white">
+                    <div class="display-4 text-primary mb-3"><i class="bi bi-arrow-left-right"></i></div>
+                    <h5 class="card-title fw-bold text-primary">Duyệt mượn/trả</h5>
+                    <p class="card-text opacity-75 small">Xử lý xuất kho mượn sách tại quầy và xác nhận trả sách/tính phạt.</p>
+                    <a asp-action="BorrowReturn" class="btn btn-primary w-100">Xử lý mượn/trả</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card h-100 bg-dark border-info shadow">
+                <div class="card-body text-center text-white">
+                    <div class="display-4 text-info mb-3"><i class="bi bi-people"></i></div>
+                    <h5 class="card-title fw-bold text-info">Quản lý Độc giả</h5>
+                    <p class="card-text opacity-75 small">Xem danh sách khách hàng, tình trạng mượn trả và trễ hạn.</p>
+                    <a asp-action="ManageReaders" class="btn btn-info text-white w-100">Xem danh sách & Trạng thái</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card h-100 bg-dark border-warning shadow">
+                <div class="card-body text-center text-white">
+                    <div class="display-4 text-warning mb-3"><i class="bi bi-cash-coin"></i></div>
+                    <h5 class="card-title fw-bold text-warning">Quản lý Vi Phạm</h5>
+                    <p class="card-text opacity-75 small">Quản lý sách trễ hạn, báo mất và tiến hành thu tiền phạt.</p>
+                    <a asp-action="ManageFines" class="btn btn-warning fw-bold text-dark w-100">Xem danh sách vi phạm</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,148 @@
+﻿@model List<dynamic>
+@{
+    ViewData["Title"] = "Quản lý Độc giả";
+}
+
+<div class="container-fluid mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="text-info fw-bold"><i class="bi bi-people-fill"></i> QUẢN LÝ ĐỘC GIẢ</h2>
+        <a asp-action="AddReader" class="btn btn-success"><i class="bi bi-person-plus"></i> Đăng ký mới</a>
+    </div>
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+    }
+
+    <div class="table-responsive shadow rounded">
+        <table class="table table-dark table-hover align-middle mb-0 border-secondary">
+            <thead class="table-info text-dark">
+                <tr>
+                    <th>Mã số</th>
+                    <th>Họ và Tên</th>
+                    <th>Số điện thoại</th>
+                    <th>Tổ chức</th>
+                    <th class="text-center">Mượn/Trễ</th>
+                    <th>Trạng thái</th>
+                    <th class="text-center">Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var r in Model)
+                {
+                    <tr class="@(r.Overdue > 0 ? "border-start border-4 border-danger" : "")">
+                        <td><code class="text-info">DG@(r.ID.ToString("D5"))</code></td>
+                        <td class="fw-bold">@r.LastName @r.FirstName</td>
+                        <td>
+                            @if (string.IsNullOrEmpty(r.Phone))
+                            {
+                                <span class="badge bg-warning text-dark"><i class="bi bi-telephone-x"></i> Cần bổ sung</span>
+                            }
+                            else
+                            {
+                                <span>@r.Phone</span>
+                            }
+                        </td>
+                        <td class="small">@r.Organization</td>
+                        <td class="text-center">
+                            <span class="badge bg-primary">@r.Borrowing</span> / <span class="badge bg-danger">@r.Overdue</span>
+                        </td>
+                        <td>
+                            <span class="badge @(r.Status == "Hoạt động" ? "bg-success" : "bg-danger")">@r.Status</span>
+                        </td>
+                        <td class="text-center">
+                            <button class="btn btn-sm btn-info text-white me-1"
+                                    onclick="openEditModal('@r.ID', '@r.LastName', '@r.FirstName', '@r.DOB', '@r.Phone', '@r.Organization', '@r.Role', '@r.Status')">
+                                <i class="bi bi-pencil-square"></i>
+                            </button>
+                            @* Kiểm tra trạng thái để hiển thị nút Khóa hoặc Mở khóa *@
+                            @if (r.Status == "Hoạt động")
+                            {
+                                <form asp-action="LockReader" asp-route-id="@r.ID" method="post" class="d-inline" onsubmit="return confirm('Bạn có chắc chắn muốn KHÓA tài khoản này?')">
+                                    <button type="submit" class="btn btn-sm btn-outline-danger" title="Khóa tài khoản">
+                                        <i class="bi bi-lock-fill"></i>
+                                    </button>
+                                </form>
+                            }
+                            else
+                            {
+                                <form asp-action="UnlockReader" asp-route-id="@r.ID" method="post" class="d-inline" onsubmit="return confirm('MỞ KHÓA cho tài khoản này?')">
+                                    <button type="submit" class="btn btn-sm btn-success shadow-sm" title="Mở khóa tài khoản">
+                                        <i class="bi bi-unlock-fill"></i>
+                                    </button>
+                                </form>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="modal fade" id="editReaderModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content bg-dark text-white border-info">
+            <form asp-action="UpdateReader" method="post">
+                <div class="modal-header border-info">
+                    <h5 class="modal-title font-italic">Cập nhật thông tin độc giả</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="id" id="edit-id" />
+                    <div class="mb-2"><small class="text-info">Mã Độc giả: <span id="display-id"></span></small></div>
+
+                    <div class="row g-2 mb-3">
+                        <div class="col"><label class="small">Họ</label><input type="text" name="ho" id="edit-ho" class="form-control" required /></div>
+                        <div class="col"><label class="small">Tên</label><input type="text" name="ten" id="edit-ten" class="form-control" required /></div>
+                    </div>
+                    <div class="mb-3"><label class="small">Ngày sinh</label><input type="date" name="ngaySinh" id="edit-dob" class="form-control" required /></div>
+                    <div class="mb-3"><label class="small text-warning">Số điện thoại (Cần để mượn sách)</label><input type="text" name="phone" id="edit-phone" class="form-control" placeholder="Xin số khách để lưu..." /></div>
+                    <div class="mb-3"><label class="small">Tổ chức</label><input type="text" name="toChuc" id="edit-tochuc" class="form-control" /></div>
+
+                    <div class="row g-2 mb-3">
+                        <div class="col">
+                            <label class="small">Chức vụ</label>
+                            <select name="chucVu" id="edit-role" class="form-select">
+                                <option value="học sinh">học sinh</option>
+                                <option value="sinh viên">sinh viên</option>
+                                <option value="giảng viên">giảng viên</option>
+                                <option value="khác">khác</option>
+                            </select>
+                        </div>
+                        <div class="col">
+                            <label class="small">Trạng thái</label>
+                            <select name="status" id="edit-status" class="form-select">
+                                <option value="Hoạt động">Active</option>
+                                <option value="Khóa">Locked</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer border-info d-flex justify-content-between">
+                    <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Quay về</button>
+                    <button type="submit" class="btn btn-info px-4">Lưu thay đổi</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function openEditModal(id, ho, ten, dob, phone, tochuc, role, status) {
+            document.getElementById('edit-id').value = id;
+            document.getElementById('display-id').innerText = 'DG' + id.padStart(5, '0');
+            document.getElementById('edit-ho').value = ho;
+            document.getElementById('edit-ten').value = ten;
+            document.getElementById('edit-dob').value = dob;
+            document.getElementById('edit-phone').value = phone;
+            document.getElementById('edit-tochuc').value = tochuc;
+            document.getElementById('edit-role').value = role;
+            document.getElementById('edit-status').value = status;
+
+            var myModal = new bootstrap.Modal(document.getElementById('editReaderModal'));
+            myModal.show();
+        }
+    </script>
+}

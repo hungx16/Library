@@ -1,0 +1,28 @@
+﻿@model List<_3NF_Library.Models.Entities.sp_Admin_GetActivityLogsResult>
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Nhật ký hoạt động</h2>
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>Mã Log</th>
+                <th>Thời gian</th>
+                <th>Vai trò</th>
+                <th>Mã số</th>
+                <th>Nội dung</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var log in Model)
+            {
+                <tr>
+                    <td>@log.LogID</td>
+                    <td>@log.Time</td>
+                    <td>@log.Role</td>
+                    <td>@log.ID</td>
+                    <td>@log.Nộidunghoạtđộng</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <a asp-action="Index" class="btn btn-secondary">Quay về</a>
+</div>

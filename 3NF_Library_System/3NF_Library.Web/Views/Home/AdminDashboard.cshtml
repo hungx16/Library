@@ -1,0 +1,191 @@
+﻿@model _3NF_Library.Web.Models.AdminDashboardVM
+@{
+    ViewData["Title"] = " Admin Dashboard";
+}
+
+<style>
+    :root {
+        --glass-bg: rgba(255, 255, 255, 0.03);
+        --grad-violation: linear-gradient(135deg, #ff0000 0%, #7a0000 100%);
+        --grad-pending: linear-gradient(135deg, #f39c12 0%, #d35400 100%);
+        --grad-revenue: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+        --grad-borrow: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+    }
+
+    .card-stat {
+        border: none;
+        border-radius: 15px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        height: 100%;
+    }
+
+        .card-stat:hover {
+            transform: scale(1.03);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+        }
+
+    .bg-violation {
+        background: var(--grad-violation);
+    }
+
+    .bg-pending {
+        background: var(--grad-pending);
+    }
+
+    .bg-revenue {
+        background: var(--grad-revenue);
+    }
+
+    .bg-borrow {
+        background: var(--grad-borrow);
+    }
+
+    .stat-label {
+        font-size: 0.8rem;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        opacity: 0.9;
+    }
+
+    .stat-value {
+        font-size: 2.5rem;
+        font-weight: 800;
+        line-height: 1;
+        margin: 10px 0;
+    }
+
+    .chart-container {
+        background: var(--glass-bg);
+        border: 1px solid #333;
+        border-radius: 20px;
+        padding: 25px;
+    }
+</style>
+
+<div class="container-fluid mt-4 px-4">
+    <div class="mb-5 border-bottom border-secondary pb-3">
+        <h1 class="fw-bold text-info"><i class="bi bi-cpu-fill"></i> QUẢN TRỊ TRUNG TÂM</h1>
+    </div>
+
+    <div class="row g-4 mb-5">
+        <div class="col-md-3">
+            <div class="card card-stat bg-borrow shadow">
+                <div class="card-body p-4">
+                    <div class="stat-label">Tổng lượt mượn</div>
+                    <div class="stat-value">@Model.BorrowStats?.TotalLifetimeBorrows</div>
+                    <i class="bi bi-journal-text position-absolute end-0 bottom-0 m-3 opacity-25 fs-1"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <a asp-action="ManageFines" class="text-decoration-none h-100 d-block">
+                <div class="card card-stat bg-violation shadow">
+                    <div class="card-body p-4">
+                        <div class="stat-label text-white">Vi phạm (Cần xử lý)</div>
+                        <div class="stat-value text-white">@Model.BorrowStats?.TotalOverdue</div>
+                        <div class="small fw-bold text-white"><i class="bi bi-arrow-right-circle"></i> CLICK KIỂM TRA</div>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card card-stat bg-revenue shadow">
+                <div class="card-body p-4">
+                    <div class="stat-label">Doanh thu đã thu</div>
+                    <div class="stat-value fs-3">@Model.FinancialStats?.TotalRevenueCollected?.ToString("N0") VNĐ</div>
+                    <i class="bi bi-cash-stack position-absolute end-0 bottom-0 m-3 opacity-25 fs-1"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card card-stat bg-pending shadow">
+                <div class="card-body p-4">
+                    <div class="stat-label text-white">Phạt chưa thu</div>
+                    <div class="stat-value fs-3 text-white">@Model.FinancialStats?.PendingRevenue?.ToString("N0") VNĐ</div>
+                    <i class="bi bi-exclamation-octagon position-absolute end-0 bottom-0 m-3 opacity-25 fs-1"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-lg-9">
+            <div class="chart-container shadow-lg">
+                <h5 class="text-info mb-4 fw-bold border-start border-3 border-info ps-3">HIỆU SUẤT VẬN HÀNH 7 NGÀY QUA</h5>
+                <div style="height: 400px; position: relative;">
+                    <canvas id="mainChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3">
+            <div class="card bg-dark border-secondary h-100 shadow">
+                <div class="card-header bg-black text-warning fw-bold border-secondary">TỔNG KẾT NHANH</div>
+                <div class="card-body text-center d-flex flex-column justify-content-center">
+                    <h1 class="display-3 fw-bold">@Model.BorrowStats?.TotalLost</h1>
+                    <div class="text-danger fw-bold text-uppercase">Sách đã mất</div>
+                    <p class="small text-muted mt-3">Tỷ lệ mất sách: @(Model.BorrowStats?.TotalLifetimeBorrows > 0 ? (Model.BorrowStats.TotalLost * 100 / Model.BorrowStats.TotalLifetimeBorrows) : 0)%</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        $(document).ready(function () {
+            $.get('/Home/GetBorrowChartData', function (res) {
+                const ctx = document.getElementById('mainChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: res.labels,
+                        datasets: [
+                            {
+                                label: 'Sách Mượn',
+                                data: res.borrowData,
+                                borderColor: '#3498db',
+                                backgroundColor: 'rgba(52, 152, 219, 0.2)',
+                                fill: true,
+                                tension: 0.4,
+                                borderWidth: 4
+                            },
+                            {
+                                label: 'Sách Trả',
+                                data: res.returnData,
+                                borderColor: '#2ecc71',
+                                backgroundColor: 'rgba(46, 204, 113, 0.2)',
+                                fill: true,
+                                tension: 0.4,
+                                borderWidth: 4
+                            },
+                            {
+                                label: 'Sách Mới',
+                                data: res.newData,
+                                borderColor: '#f1c40f',
+                                borderDash: [5, 5],
+                                fill: false,
+                                tension: 0.4
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { labels: { color: 'white', font: { size: 14 } } } },
+                        scales: {
+                            y: { grid: { color: '#333' }, ticks: { color: '#aaa', stepSize: 1 } },
+                            x: { grid: { color: '#333' }, ticks: { color: '#aaa' } }
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+}

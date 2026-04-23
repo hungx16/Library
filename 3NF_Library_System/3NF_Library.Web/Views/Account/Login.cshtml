@@ -1,0 +1,46 @@
+﻿@model _3NF_Library.Web.Models.LoginViewModel
+@{
+    ViewData["Title"] = "Đăng nhập";
+}
+
+<div class="row justify-content-center mt-5">
+    <div class="col-md-4 card shadow p-4">
+        <h4 class="text-center text-primary mb-4">Đăng Nhập Thư Viện</h4>
+        @if (ViewBag.ErrorMessage != null)
+        {
+            <div class="alert alert-danger">@ViewBag.ErrorMessage</div>
+        }
+
+        <form asp-action="Login" method="post">
+            <div class="mb-3">
+                <label>Loại tài khoản</label>
+                <select name="accountType" id="roleSelect" class="form-select">
+                    <option value="Reader">Độc giả</option>
+                    <option value="Librarian">Thủ thư</option>
+                    <option value="Admin">Quản trị viên</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label>Username</label>
+                <input type="text" name="username" class="form-control" required />
+            </div>
+            <div class="mb-3">
+                <label>Mật khẩu</label>
+                <input type="password" name="password" class="form-control" required />
+            </div>
+            <div class="mb-3" id="secretCodeDiv" style="display: none;">
+                <label class="text-danger fw-bold">Mã bảo mật nội bộ</label>
+                <input type="password" name="secretCode" class="form-control" />
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Đăng Nhập</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.getElementById('roleSelect').addEventListener('change', function () {
+            document.getElementById('secretCodeDiv').style.display = (this.value === 'Admin' || this.value === 'Librarian') ? 'block' : 'none';
+        });
+    </script>
+}

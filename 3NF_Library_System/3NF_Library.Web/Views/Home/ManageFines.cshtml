@@ -1,0 +1,93 @@
+﻿@{
+    ViewData["Title"] = "Quản lý Vi phạm";
+}
+
+<div class="container-fluid mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="text-warning fw-bold"><i class="bi bi-exclamation-triangle-fill"></i> QUẢN LÝ VI PHẠM</h2>
+        <span class="badge bg-danger fs-6 shadow-sm"><i class="bi bi-clock-history"></i> Mức phạt trễ: 4,000đ / ngày</span>
+    </div>
+
+    <div class="table-responsive shadow-lg rounded">
+        <table class="table table-dark table-hover border-secondary align-middle mb-0 text-nowrap">
+            <thead class="table-warning text-dark text-center">
+                <tr>
+                    <th>Mã đơn</th>
+                    <th class="text-start">Tên người mượn</th>
+                    <th>Phone</th>
+                    <th>Ngày mượn</th>
+                    <th>Ngày trả (Hạn)</th>
+                    <th class="text-start">Tên sách trễ / mất</th>
+                    <th>SL</th>
+                    <th>Trạng thái</th>
+                    <th>Thu phạt</th>
+                </tr>
+            </thead>
+            <tbody class="text-center">
+                @if (ViewBag.Violations == null || ViewBag.Violations.Count == 0)
+                {
+                    <tr><td colspan="9" class="text-success py-4 fw-bold">Hiện tại không có khoản vi phạm nào!</td></tr>
+                }
+                else
+                {
+                    @foreach (var v in ViewBag.Violations)
+                    {
+                        <tr>
+                            <td class="text-info fw-bold">#@v.OrderID</td>
+                            <td class="text-start fw-bold">@v.ReaderName</td>
+                            <td><span class="badge bg-secondary">@v.Phone</span></td>
+                            <td class="small opacity-75">@v.BorrowDate</td>
+                            <td class="small text-danger fw-bold">@v.Deadline</td>
+                            <td class="text-start text-warning text-wrap" style="max-width: 250px;">@v.BookTitle</td>
+                            <td>@v.Qty</td>
+                            <td>
+                                @if (v.Status == "Mất sách")
+                                {
+                                    <span class="badge bg-danger shadow-sm">Mất sách</span>
+                                }
+                                else if (v.Status == "Trễ hạn")
+                                {
+                                    <span class="badge bg-warning text-dark shadow-sm">Đã chốt phạt</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-secondary border border-warning text-warning">@v.Status</span>
+                                }
+                            </td>
+                            <td>
+                                @if (v.CanCollect)
+                                {
+                                    @if (User.IsInRole("Admin"))
+                                    {
+                                        @* Admin chỉ xem, không được thu *@
+                                        <button class="btn btn-sm btn-outline-secondary shadow-sm fw-bold" disabled>
+                                            @v.Amount.ToString("N0") đ <i class="bi bi-shield-lock"></i>
+                                        </button>
+                                        <div class="small text-muted mt-1" style="font-size: 0.6rem;">*Dành cho Thủ thư</div>
+                                    }
+                                    else
+                                    {
+                                        @* Thủ thư vẫn thu tiền bình thường *@
+                                        <form asp-action="CollectFine" method="post" onsubmit="return confirm('Xác nhận thu @(v.Amount.ToString("N0")) VNĐ?')">
+                                            <input type="hidden" name="fineId" value="@v.FineID" />
+                                            <button type="submit" class="btn btn-sm btn-success shadow-sm fw-bold">
+                                                @(v.Amount.ToString("N0")) đ <i class="bi bi-box-arrow-in-down"></i>
+                                            </button>
+                                        </form>
+                                    }
+                                }
+                                else
+                                {
+                                    <button class="btn btn-sm btn-secondary shadow-sm opacity-50" disabled>
+                                        @v.Amount.ToString("N0") đ <i class="bi bi-lock-fill"></i>
+                                    </button>
+                                    <div class="small text-warning mt-1" style="font-size: 0.65rem;">*Cần trả sách để chốt phạt</div>
+                                }
+                            </td>                       
+                    </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

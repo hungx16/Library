@@ -1,0 +1,73 @@
+﻿@{
+    ViewData["Title"] = "Đăng ký độc giả mới";
+}
+
+<div class="row justify-content-center mt-5">
+    <div class="col-md-6 card shadow p-4 bg-light text-dark">
+        <h3 class="mb-4 font-italic text-secondary" style="border-bottom: 2px solid #ddd;">Đăng ký độc giả mới</h3>
+
+        @if (ViewBag.Error != null)
+        {
+            <div class="alert alert-danger">@ViewBag.Error</div>
+        }
+
+        <form asp-action="AddReader" method="post">
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label fw-bold">Họ</label>
+                <div class="col-sm-9">
+                    <input type="text" name="ho" class="form-control" placeholder="Ví dụ: Nguyễn" required />
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label fw-bold">Tên</label>
+                <div class="col-sm-9">
+                    <input type="text" name="ten" class="form-control" placeholder="Ví dụ: Sơn Hà" required />
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label fw-bold">Ngày sinh</label>
+                <div class="col-sm-9">
+                    <input type="date" name="ngaySinh" class="form-control" required />
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label fw-bold">Tổ chức</label>
+                <div class="col-sm-9">
+                    <input type="text" name="toChuc" class="form-control" placeholder="Ví dụ: HUFLIT" required />
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label fw-bold">Status</label>
+                <div class="col-sm-9">
+                    <select name="status" class="form-select">
+                        <option value="Hoạt động">Hoạt động</option>
+                        <option value="Khóa">Tạm khóa</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row mb-4">
+                <label class="col-sm-3 col-form-label fw-bold">Chức vụ</label>
+                <div class="col-sm-9">
+                    <select name="chucVu" class="form-select">
+                        <option value="sinh viên">sinh viên</option>
+                        <option value="giảng viên">giảng viên</option>
+                        <option value="khác">khác</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-between">
+                <a asp-action="LibrarianDashboard" class="btn btn-outline-secondary px-4">Quay lại</a>
+                <div>
+                    <button type="button" class="btn btn-info text-white me-2" onclick="location.href='#'">Danh sách độc giả</button>
+                    <button type="submit" class="btn btn-primary px-4">Xác nhận đăng ký</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
