@@ -9,7 +9,7 @@ III. Tech Stack
 - **Frontend:** Bootstrap 5, jQuery, HTML5/CSS3
 - **Tools:** Visual Studio 2022, Git
 
-IV. ✨ Key Features
+IV. Key Features
 
 - Database Excellence: Fully normalized tables (3NF) to optimize storage and query speed.
 - Book Management: Advanced CRUD operations for books, authors, and categories.
