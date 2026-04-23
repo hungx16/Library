@@ -1,0 +1,274 @@
+﻿{
+   "CodeGenerationMode": 4,
+   "ContextClassName": "LibraryDbContext",
+   "ContextNamespace": null,
+   "FilterSchemas": false,
+   "IncludeConnectionString": false,
+   "IrregularWords": null,
+   "MinimumProductVersion": "2.6.1465",
+   "ModelNamespace": null,
+   "OutputContextPath": "Context",
+   "OutputPath": "Entities",
+   "PluralRules": null,
+   "PreserveCasingWithRegex": true,
+   "ProjectRootNamespace": "_3NF_Library.Data",
+   "Schemas": null,
+   "SelectedHandlebarsLanguage": 2,
+   "SelectedToBeGenerated": 0,
+   "SingularRules": null,
+   "T4TemplatePath": null,
+   "Tables": [
+      {
+         "Name": "[dbo].[tbl_ActivityLog]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[tbl_Admin_Account]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[tbl_Attendance]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[tbl_Author]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[tbl_Book]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[tbl_Borrow_Detail]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[tbl_Borrow_Order]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[tbl_Category]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[tbl_Fine]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[tbl_Librarian_Account]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[tbl_Publisher]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[tbl_Reader_Account]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[vw_Admin_BorrowStats]",
+         "ObjectType": 3
+      },
+      {
+         "Name": "[dbo].[vw_Admin_Financials]",
+         "ObjectType": 3
+      },
+      {
+         "Name": "[dbo].[vw_Book_Public]",
+         "ObjectType": 3
+      },
+      {
+         "Name": "[dbo].[sp_Accounting_GetPaidFines]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[sp_Accounting_GetUnpaidFines]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[sp_Accounting_PayFine]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[sp_AddAuthor]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[sp_AddCategory]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[sp_AddNewBook]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[sp_AddPublisher]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[sp_Admin_AddNewLibrarian]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[sp_Admin_GetActivityLogs]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[sp_BorrowList_All]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[sp_CheckAndApplyDueFines]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[sp_CheckIn]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[sp_CreateBorrowOrder]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[sp_CreateReaderAccount]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[sp_FindBookByAuthor]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[sp_FindBookByCategory]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[sp_FindBookByPublishedYear]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[sp_FindBookByPublisher]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[sp_FindBookByTitle]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[sp_FindReaderByName]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[sp_FindReaderByOrganization]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[sp_findReaderByRole]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[sp_GetAllAuthor]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[sp_GetAllBook]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[sp_GetAllOrganizations]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[sp_GetAllPublisher]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[sp_GetDatabaseInventory]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[sp_getReaderList]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[sp_Librarian_ApproveOrder]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[sp_Librarian_GetBorrowingOrders]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[sp_Librarian_UpdateReaderInfo]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[sp_LogIn]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[sp_MarkBookLostAndUpdateFine]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[sp_PayFine]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[sp_Reader_CreatePendingOrder]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[sp_Reader_GetAllMyInfo]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[sp_Reader_UpdatePassword]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[sp_Reader_UpdatePhone]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[sp_ReturnBook]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[sp_UpdateReaderInfo]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[fn_CalculateFine]",
+         "ObjectType": 2
+      }
+   ],
+   "UiHint": null,
+   "UncountableWords": null,
+   "UseAsyncStoredProcedureCalls": true,
+   "UseBoolPropertiesWithoutDefaultSql": false,
+   "UseDatabaseNames": true,
+   "UseDatabaseNamesForRoutines": true,
+   "UseDateOnlyTimeOnly": true,
+   "UseDbContextSplitting": false,
+   "UseDecimalDataAnnotationForSprocResult": true,
+   "UseFluentApiOnly": false,
+   "UseHandleBars": false,
+   "UseHierarchyId": false,
+   "UseInflector": true,
+   "UseInternalAccessModifiersForSprocsAndFunctions": false,
+   "UseLegacyPluralizer": false,
+   "UseManyToManyEntity": true,
+   "UseNoDefaultConstructor": false,
+   "UseNoNavigations": false,
+   "UseNoObjectFilter": false,
+   "UseNodaTime": false,
+   "UseNullableReferences": true,
+   "UsePrefixNavigationNaming": false,
+   "UseSchemaFolders": false,
+   "UseSchemaNamespaces": false,
+   "UseSpatial": false,
+   "UseT4": false,
+   "UseT4Split": false,
+   "UseTypedTvpParameters": true
+}
